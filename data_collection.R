@@ -23,7 +23,7 @@ happy19 <- read.csv(text = getURL('https://raw.githubusercontent.com/FrancaSp/Da
 
 # The following Data for Employmentrate 
 employmentrate <- read.csv(text = getURL('https://raw.githubusercontent.com/FrancaSp/DataScience_Project/master/Datensaetze/Erwerbstaetigenquote.csv'))
-interestrates_longterm <- read.csv(getURL('https://raw.githubusercontent.com/FrancaSp/DataScience_Project/master/Datensaetze/Zinsen_langfristig.csv'))
+interestrates_longterm <- read.csv(text = getURL('https://raw.githubusercontent.com/FrancaSp/DataScience_Project/master/Datensaetze/Zinsen_langfristig.csv'))
 
 # rename the data from Happiness Factor Datasets 
 happy15 <- happy15 %>% rename(Score = Happiness.Score, Overall.rank = Happiness.Rank, GDP.per.capita = Economy..GDP.per.Capita.,
@@ -52,7 +52,7 @@ happy16 = subset(happy16, select = c(colnames(happy19)))
 happy17 = subset(happy17, select = c(colnames(happy19)))
 
 
-
+houseprice_total <- filter(houseprices, PURCHASE== "Total" & TIME > 2014) 
 #convert factor var inn numeric
 houseprice_total$Value <- as.numeric(as.character(houseprice_total$Value))
 houseprice_total$GEO <- as.character(houseprice_total$GEO)
