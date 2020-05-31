@@ -1,10 +1,14 @@
+library(httr)
 ## Einbindung der Datensätze 
 library(tidyverse)
 library(gdata)
+library(RCurl)
 #jobs <- read.table(file='~/Google Drive/Data Science Abgabe/Daten/jobs.tsv',sep = '\t', header = TRUE)
 jobs <- read.csv('~/Google Drive/Data Science Abgabe/Daten/jobs.csv')
 interestrates <- read.csv('~/Google Drive/Data Science Abgabe/Daten/intrestrates.csv')
 houseprices <- read.csv('~/Google Drive/Data Science Abgabe/Daten/housingprices.csv')
+
+happy15 <- read.csv(text = getURL('https://raw.githubusercontent.com/FrancaSp/DataScience_Project/master/Datensaetze/happy2015.csv'))
 happy15 <- read.csv('~/Google Drive/Data Science Abgabe/Daten/happy2015.csv')
 happy16 <- read.csv('~/Google Drive/Data Science Abgabe/Daten/happy2016.csv')
 happy17 <- read.csv('~/Google Drive/Data Science Abgabe/Daten/happy2017.csv')
@@ -22,7 +26,7 @@ nrow(filter(filter(interestrates, INT_RT == "Day-to-day rate"),Value == ":"))
 threemonth_interestrates <- filter(interestrates, INT_RT == "3-month rate")
 
 houseprice_total <- filter(houseprices, PURCHASE== "Total" & TIME > 2014) 
-View(houseprice_total)
+#View(houseprice_total)
 
 happy15 <- happy15 %>% rename(Score = Happiness.Score, Overall.rank = Happiness.Rank, GDP.per.capita = Economy..GDP.per.Capita.,
                               Healthy.life.expectancy = Health..Life.Expectancy., Freedom.to.make.life.choices = Freedom,
@@ -49,7 +53,7 @@ happy15 = subset(happy15, select = c(colnames(happy19)))
 happy16 = subset(happy16, select = c(colnames(happy19)))
 happy17 = subset(happy17, select = c(colnames(happy19)))
 
-View(filter(houseprice_total, TIME == 2015 & UNIT == "Annual average rate of change"))
+#View(filter(houseprice_total, TIME == 2015 & UNIT == "Annual average rate of change"))
 
 threemonth_interestrates <- filter(threemonth_interestrates, TIME > 2014) 
 
