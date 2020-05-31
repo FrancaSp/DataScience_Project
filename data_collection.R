@@ -5,7 +5,7 @@ library(gdata)
 library(RCurl)
 #jobs <- read.table(file='~/Google Drive/Data Science Abgabe/Daten/jobs.tsv',sep = '\t', header = TRUE)
 jobs <- read.csv('~/Google Drive/Data Science Abgabe/Daten/jobs.csv')
-interestrates <- read.csv('~/Google Drive/Data Science Abgabe/Daten/intrestrates.csv')
+#interestrates <- read.csv('~/Google Drive/Data Science Abgabe/Daten/intrestrates.csv')
 houseprices <- read.csv('~/Google Drive/Data Science Abgabe/Daten/housingprices.csv')
 
 happy15 <- read.csv(text = getURL('https://raw.githubusercontent.com/FrancaSp/DataScience_Project/master/Datensaetze/happy2015.csv'))
@@ -16,14 +16,14 @@ happy18 <- read.csv('~/Google Drive/Data Science Abgabe/Daten/happy2018.csv')
 happy19 <- read.csv('~/Google Drive/Data Science Abgabe/Daten/happy2019.csv')
 
 #missing values
-nrow(filter(filter(interestrates, INT_RT == "12-month rate"),Value == ":"))
-nrow(filter(filter(interestrates, INT_RT == "3-month rate"),Value == ":"))
-nrow(filter(filter(interestrates, INT_RT == "1-month rate"),Value == ":"))
-nrow(filter(filter(interestrates, INT_RT == "6-month rate"),Value == ":"))
-nrow(filter(filter(interestrates, INT_RT == "Day-to-day rate"),Value == ":"))
+# nrow(filter(filter(interestrates, INT_RT == "12-month rate"),Value == ":"))
+# nrow(filter(filter(interestrates, INT_RT == "3-month rate"),Value == ":"))
+# nrow(filter(filter(interestrates, INT_RT == "1-month rate"),Value == ":"))
+# nrow(filter(filter(interestrates, INT_RT == "6-month rate"),Value == ":"))
+# nrow(filter(filter(interestrates, INT_RT == "Day-to-day rate"),Value == ":"))
 ## since 3-month rate has the lowest level of missing values this value will be prcessed futher 
 
-threemonth_interestrates <- filter(interestrates, INT_RT == "3-month rate")
+#threemonth_interestrates <- filter(interestrates, INT_RT == "3-month rate")
 
 houseprice_total <- filter(houseprices, PURCHASE== "Total" & TIME > 2014) 
 #View(houseprice_total)
@@ -55,7 +55,7 @@ happy17 = subset(happy17, select = c(colnames(happy19)))
 
 #View(filter(houseprice_total, TIME == 2015 & UNIT == "Annual average rate of change"))
 
-threemonth_interestrates <- filter(threemonth_interestrates, TIME > 2014) 
+#threemonth_interestrates <- filter(threemonth_interestrates, TIME > 2014) 
 
 #convert factor var inn numeric
 houseprice_total$Value <- as.numeric(as.character(houseprice_total$Value))
@@ -138,27 +138,27 @@ happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "HousePrice.AvgIndex", "V
 
 
 ## collect interest rates and include tehm in happyness datasets 
-threemonth_interestrates$Value <- as.numeric(as.character(threemonth_interestrates$Value))
-threemonth_interestrates$GEO <- as.character(threemonth_interestrates$GEO)
-tmp <- filter(threemonth_interestrates, TIME == 2015) 
-happy15$Threemonth.InterestRates <- NA 
-happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "Threemonth.InterestRates", "Value")
-
-tmp <- filter(threemonth_interestrates, TIME == 2016) 
-happy16$Threemonth.InterestRates <- NA 
-happy16 <- extractinfo(tmp, happy16, "GEO", "Country", "Threemonth.InterestRates", "Value")
-
-tmp <- filter(threemonth_interestrates, TIME == 2017) 
-happy17$Threemonth.InterestRates <- NA 
-happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "Threemonth.InterestRates", "Value")
-
-tmp <- filter(threemonth_interestrates, TIME == 2018) 
-happy18$Threemonth.InterestRates <- NA 
-happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "Threemonth.InterestRates", "Value")
-
-tmp <- filter(threemonth_interestrates, TIME == 2019) 
-happy19$Threemonth.InterestRates <- NA 
-happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "Threemonth.InterestRates", "Value")
+# threemonth_interestrates$Value <- as.numeric(as.character(threemonth_interestrates$Value))
+# threemonth_interestrates$GEO <- as.character(threemonth_interestrates$GEO)
+# tmp <- filter(threemonth_interestrates, TIME == 2015) 
+# happy15$Threemonth.InterestRates <- NA 
+# happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "Threemonth.InterestRates", "Value")
+# 
+# tmp <- filter(threemonth_interestrates, TIME == 2016) 
+# happy16$Threemonth.InterestRates <- NA 
+# happy16 <- extractinfo(tmp, happy16, "GEO", "Country", "Threemonth.InterestRates", "Value")
+# 
+# tmp <- filter(threemonth_interestrates, TIME == 2017) 
+# happy17$Threemonth.InterestRates <- NA 
+# happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "Threemonth.InterestRates", "Value")
+# 
+# tmp <- filter(threemonth_interestrates, TIME == 2018) 
+# happy18$Threemonth.InterestRates <- NA 
+# happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "Threemonth.InterestRates", "Value")
+# 
+# tmp <- filter(threemonth_interestrates, TIME == 2019) 
+# happy19$Threemonth.InterestRates <- NA 
+# happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "Threemonth.InterestRates", "Value")
 
 ## collect job vacacy information and include it in happiness data 
 jobs$Value <- as.numeric(as.character(jobs$Value))
@@ -221,29 +221,30 @@ happy17 <- extractinfo(employmentrate, happy17, "Land", "Country", "EmploymentRa
 happy18$EmploymentRate <- NA 
 happy18 <- extractinfo(employmentrate, happy18, "Land", "Country", "EmploymentRate", "X2018")
 
-BIP <- read.xls("~/Google Drive/Data Science Abgabe/Daten/Bruttoinlandsprodukt_je_Einwohner.xls")
-BIP$Land
-country_names <- c("Belgium", 'Bulgaria', 'Denmark', 'Germany', 'Estonia', 'Finland', 'France', 'Greece', 
-                   'Ireland','Iceland','Italy', 'Croatia','Latvia','Lithuania', 'Luxembourg', 'Malta',
-                   'Netherlands','Norway', 'Austria', 'Poland',
-                   'Portugal','Romania', 'Sweden', 'Switzerland', 'Slovakia', 'Slovenia', 'Spain', 'Czech Republic',
-                   'Hungary', 'United Kingdom', 'Cyprus')
-BIP$Land<- country_names
+# BIP <- read.xls("~/Google Drive/Data Science Abgabe/Daten/Bruttoinlandsprodukt_je_Einwohner.xls")
+# BIP$Land
+# country_names <- c("Belgium", 'Bulgaria', 'Denmark', 'Germany', 'Estonia', 'Finland', 'France', 'Greece', 
+#                    'Ireland','Iceland','Italy', 'Croatia','Latvia','Lithuania', 'Luxembourg', 'Malta',
+#                    'Netherlands','Norway', 'Austria', 'Poland',
+#                    'Portugal','Romania', 'Sweden', 'Switzerland', 'Slovakia', 'Slovenia', 'Spain', 'Czech Republic',
+#                    'Hungary', 'United Kingdom', 'Cyprus')
+# BIP$Land<- country_names
+# 
+# happy15$BIP <- NA 
+# happy15 <- extractinfo(BIP, happy15, "Land", "Country", "BIP", "X2015")
+# 
+# happy16$BIP <- NA 
+# happy16 <- extractinfo(BIP, happy16, "Land", "Country", "BIP", "X2016")
+# 
+# happy17$BIP <- NA 
+# happy17 <- extractinfo(BIP, happy17, "Land", "Country", "BIP", "X2017")
+# 
+# happy18$BIP <- NA 
+# happy18 <- extractinfo(BIP, happy18, "Land", "Country", "BIP", "X2018")
 
-happy15$BIP <- NA 
-happy15 <- extractinfo(BIP, happy15, "Land", "Country", "BIP", "X2015")
-
-happy16$BIP <- NA 
-happy16 <- extractinfo(BIP, happy16, "Land", "Country", "BIP", "X2016")
-
-happy17$BIP <- NA 
-happy17 <- extractinfo(BIP, happy17, "Land", "Country", "BIP", "X2017")
-
-happy18$BIP <- NA 
-happy18 <- extractinfo(BIP, happy18, "Land", "Country", "BIP", "X2018")
+#interestrates_longterm <- read.xls("~/Google Drive/Data Science Abgabe/Daten/Zinsen_langfristig.xls")
 
 interestrates_longterm <- read.xls("~/Google Drive/Data Science Abgabe/Daten/Zinsen_langfristig.xls")
-
 happy15$longterm_interestrates <- NA 
 happy15 <- extractinfo(interestrates_longterm, happy15, "Land", "Country", "longterm_interestrates", "X2015")
 
