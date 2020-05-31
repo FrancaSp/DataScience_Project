@@ -184,8 +184,8 @@ happy18 <- extractinfo(employmentrate, happy18, "Land", "Country", "EmploymentRa
 
 
 # Include longterm intrest rates in data 
-happy15$longterm_interestrates <- NA 
-happy15 <- extractinfo(interestrates_longterm, happy15, "Land", "Country", "longterm_interestrates", "X2015")
+happy15$longterm_interestrate <- NA 
+happy15 <- extractinfo(interestrates_longterm, happy15, "Land", "Country", "longterm_interestrate", "X2015")
 
 happy16$longterm_interestrate <- NA 
 happy16 <- extractinfo(interestrates_longterm, happy16, "Land", "Country", "longterm_interestrate", "X2016")
@@ -195,4 +195,10 @@ happy17 <- extractinfo(interestrates_longterm, happy17, "Land", "Country", "long
 
 happy18$longterm_interestrate <- NA 
 happy18 <- extractinfo(interestrates_longterm, happy18, "Land", "Country", "longterm_interestrate", "X2018")
+
+# combining the data into one dataset 
+happy19$EmploymentRate <- NA
+happy19$longterm_interestrate <- NA
+data <- rbind(happy15,happy16, happy17, happy18, happy19)
+
 
