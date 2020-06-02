@@ -201,4 +201,6 @@ happy19$EmploymentRate <- NA
 happy19$longterm_interestrate <- NA
 data <- rbind(happy15,happy16, happy17, happy18, happy19)
 
+write.csv(data, '~/Documents/UNI/Master/Data_Science/Daten_Codes/Datensaetze/finale_daten.csv')
+
 
