@@ -52,7 +52,7 @@ happy16 = subset(happy16, select = c(colnames(happy19)))
 happy17 = subset(happy17, select = c(colnames(happy19)))
 
 
-houseprice_total <- filter(houseprices, PURCHASE== "Total" & TIME > 2014) 
+houseprice_total <- filter(houseprices, PURCHASE== "Total" & TIME > 2012) 
 #convert factor var inn numeric
 houseprice_total$Value <- as.numeric(as.character(houseprice_total$Value))
 houseprice_total$GEO <- as.character(houseprice_total$GEO)
@@ -60,11 +60,10 @@ happy16$HousePrice.RateofChange <- NA
                                      
 
 # Change Name of Germany in order to compare Data:
-index <- c(1:350)
+index <- c(1:490)
 for (i in index) {
   if (houseprice_total$GEO[i] == "Germany (until 1990 former territory of the FRG)")
   {houseprice_total$GEO[i] <- "Germany"}
-  else i = 400
 }
 
 
@@ -88,46 +87,73 @@ extractinfo<-function(
   return(dftwo)
 }
 # include housing pricesin happiness datasets
-tmp <- filter(houseprice_total, TIME == 2016 & UNIT == "Annual average rate of change") %>% slice(6:35)
-happy16 <- extractinfo(tmp, happy16, "GEO", "Country", "HousePrice.RateofChange", "Value")
-
-tmp <- filter(houseprice_total, TIME == 2016 & UNIT == "Annual average index") %>% slice(6:35)
-happy16$HousePrice.AvgIndex <- NA 
-happy16<-extractinfo(tmp, happy16, "GEO", "Country", "HousePrice.AvgIndex", "Value")
-
+happy15$Year <- 2015
 tmp <- filter(houseprice_total, TIME == 2015 & UNIT == "Annual average rate of change") %>% slice(6:35)
 happy15$HousePrice.RateofChange <- NA 
 happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "HousePrice.RateofChange", "Value")
 
-tmp <- filter(houseprice_total, TIME == 2015 & UNIT == "Annual average index") %>% slice(6:35)
-happy15$HousePrice.AvgIndex <- NA 
-happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "HousePrice.AvgIndex", "Value")
+tmp <- filter(houseprice_total, TIME == 2013 & UNIT == "Annual average index") %>% slice(6:35)
+happy15$HousePrice.AvgIndex.twoYearsago <- NA 
+happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "HousePrice.AvgIndex.twoYearsago", "Value")
 
+tmp <- filter(houseprice_total, TIME == 2014 & UNIT == "Annual average index") %>% slice(6:35)
+happy15$HousePrice.AvgIndex.oneYearago <- NA 
+happy15 <- extractinfo(tmp, happy15, "GEO", "Country", "HousePrice.AvgIndex.oneYearago", "Value")
+
+#########
+happy16$Year <- 2016
+tmp <- filter(houseprice_total, TIME == 2016 & UNIT == "Annual average rate of change") %>% slice(6:35)
+happy16 <- extractinfo(tmp, happy16, "GEO", "Country", "HousePrice.RateofChange", "Value")
+
+tmp <- filter(houseprice_total, TIME == 2014 & UNIT == "Annual average index") %>% slice(6:35)
+happy16$HousePrice.AvgIndex.twoYearsago <- NA 
+happy16<-extractinfo(tmp, happy16, "GEO", "Country", "HousePrice.AvgIndex.twoYearsago", "Value")
+
+tmp <- filter(houseprice_total, TIME == 2015 & UNIT == "Annual average index") %>% slice(6:35)
+happy16$HousePrice.AvgIndex.oneYearago <- NA 
+happy16<-extractinfo(tmp, happy16, "GEO", "Country", "HousePrice.AvgIndex.oneYearago", "Value")
+
+#############
+happy17$Year <- 2017
 tmp <- filter(houseprice_total, TIME == 2017 & UNIT == "Annual average rate of change") %>% slice(6:35)
 happy17$HousePrice.RateofChange <- NA 
 happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "HousePrice.RateofChange", "Value")
 
-tmp <- filter(houseprice_total, TIME == 2017 & UNIT == "Annual average index") %>% slice(6:35)
-happy17$HousePrice.AvgIndex <- NA 
-happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "HousePrice.AvgIndex", "Value")
+tmp <- filter(houseprice_total, TIME == 2015 & UNIT == "Annual average index") %>% slice(6:35)
+happy17$HousePrice.AvgIndex.twoYearsago <- NA 
+happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "HousePrice.AvgIndex.twoYearsago", "Value")
 
+tmp <- filter(houseprice_total, TIME == 2016 & UNIT == "Annual average index") %>% slice(6:35)
+happy17$HousePrice.AvgIndex.oneYearago <- NA 
+happy17 <- extractinfo(tmp, happy17, "GEO", "Country", "HousePrice.AvgIndex.oneYearago", "Value")
+
+############
+happy18$Year <- 2018
 tmp <- filter(houseprice_total, TIME == 2018 & UNIT == "Annual average rate of change") %>% slice(6:35)
 happy18$HousePrice.RateofChange <- NA 
 happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "HousePrice.RateofChange", "Value")
 
-tmp <- filter(houseprice_total, TIME == 2018 & UNIT == "Annual average index") %>% slice(6:35)
-happy18$HousePrice.AvgIndex <- NA 
-happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "HousePrice.AvgIndex", "Value")
+tmp <- filter(houseprice_total, TIME == 2016 & UNIT == "Annual average index") %>% slice(6:35)
+happy18$HousePrice.AvgIndex.twoYearsago <- NA 
+happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "HousePrice.AvgIndex.twoYearsago", "Value")
 
+tmp <- filter(houseprice_total, TIME == 2017 & UNIT == "Annual average index") %>% slice(6:35)
+happy18$HousePrice.AvgIndex.oneYearago <- NA 
+happy18 <- extractinfo(tmp, happy18, "GEO", "Country", "HousePrice.AvgIndex.oneYearago", "Value")
+
+############
+happy19$Year <- 2019
 tmp <- filter(houseprice_total, TIME == 2019 & UNIT == "Annual average rate of change") %>% slice(6:35)
 happy19$HousePrice.RateofChange <- NA 
 happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "HousePrice.RateofChange", "Value")
 
-tmp <- filter(houseprice_total, TIME == 2019 & UNIT == "Annual average index") %>% slice(6:35)
-happy19$HousePrice.AvgIndex <- NA 
-happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "HousePrice.AvgIndex", "Value")
+tmp <- filter(houseprice_total, TIME == 2017 & UNIT == "Annual average index") %>% slice(6:35)
+happy19$HousePrice.AvgIndex.twoYearsago <- NA 
+happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "HousePrice.AvgIndex.twoYearsago", "Value")
 
-
+tmp <- filter(houseprice_total, TIME == 2018 & UNIT == "Annual average index") %>% slice(6:35)
+happy19$HousePrice.AvgIndex.oneYearago <- NA 
+happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "HousePrice.AvgIndex.oneYearago", "Value")
 
 ## collect job vacacy information and include it in happiness data 
 jobs$Value <- as.numeric(as.character(jobs$Value))
@@ -162,12 +188,12 @@ happy19 <- extractinfo(tmp, happy19, "GEO", "Country", "Job.Vacancy", "Value")
 
 # exclude the missing values of non european countries 
 
-happy15 <- filter(happy15,happy15$HousePrice.AvgIndex != 'NA')
-happy16 <- filter(happy16,happy16$HousePrice.AvgIndex != 'NA')
-happy16 <- filter(happy16,happy16$HousePrice.AvgIndex != 'NA')
-happy17 <- filter(happy17,happy17$HousePrice.AvgIndex != 'NA')
-happy18 <- filter(happy18,happy18$HousePrice.AvgIndex != 'NA')
-happy19 <- filter(happy19,happy19$HousePrice.AvgIndex != 'NA')
+happy15 <- filter(happy15,happy15$HousePrice.RateofChange != 'NA')
+happy16 <- filter(happy16,happy16$HousePrice.RateofChange != 'NA')
+happy16 <- filter(happy16,happy16$HousePrice.RateofChange != 'NA')
+happy17 <- filter(happy17,happy17$HousePrice.RateofChange != 'NA')
+happy18 <- filter(happy18,happy18$HousePrice.RateofChange != 'NA')
+happy19 <- filter(happy19,happy19$HousePrice.RateofChange != 'NA')
 
 # The following part includes the Employment Rate Information
 happy15$EmploymentRate <- NA 
