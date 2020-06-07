@@ -1,4 +1,4 @@
-##### Decision Tree - Nr.2 (C5.0 Algorithmus) #####
+##### Decision Tree - (C5.0 Algorithmus) - 3 Gruppen #####
 
 
 library(readr)
@@ -62,11 +62,10 @@ daten_test <- daten[-split_id,]
 #model <- RateofChange ~ Score + Overall.rank + GDP.per.capita + Healthy.life.expectancy + 
 #  Freedom.to.make.life.choices + Generosity + Perceptions.of.corruption + Job.Vacancy + 
 #  EmploymentRate + longterm_interestrate + HousePrice.AvgIndex.oneYearago + HousePrice.AvgIndex.twoYearsago
-model <- RateofChange ~ Score + Overall.rank + GDP.per.capita + Healthy.life.expectancy + 
-  Freedom.to.make.life.choices + Perceptions.of.corruption + Job.Vacancy + 
-  EmploymentRate + longterm_interestrate 
-# HousePrice.RateofChange + HousePrice.AvgIndex
-
+model <- RateofChange ~ Score + GDP.per.capita + Healthy.life.expectancy + 
+  Freedom.to.make.life.choices + Generosity + Perceptions.of.corruption + Job.Vacancy + 
+  EmploymentRate + longterm_interestrate + HousePrice.AvgIndex.oneYearago + HousePrice.AvgIndex.twoYearsago
+#+ Overall.rank
 
 tree_C50 <- C5.0(x=daten_train, y=as.factor(daten_train$RateofChange))
 tree_C50 <- C5.0(model, data=daten_train, trials=30)
@@ -77,13 +76,13 @@ plot(tree_C50)
 
 
 ### (5) Vorhersagen von Testdatensatz:
-pred <- predict(tree_C50, daten_train)
-#daten_train$C50_pred <- pred
+pred <- predict(tree_C50, daten_test)
+#daten_test$C50_pred <- pred
 
 
 ### (6) Vergleich Vorhersagen & Tatsächliche Gruppe von Testdatensazt mittels Confusion Matrix:
-daten_train$RateofChange <- as.factor(daten_train$RateofChange)
-confusionMatrix(pred, as.factor(daten_train$RateofChange), dnn = c("Prediction", "Actual Data"))
+daten_test$RateofChange <- as.factor(daten_test$RateofChange)
+confusionMatrix(pred, as.factor(daten_test$RateofChange), dnn = c("Prediction", "Actual Data"))
 
 
 
