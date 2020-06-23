@@ -17,11 +17,11 @@ index <- c(1:145)
 for (i in index){
   if (data$HousePrice.RateofChange[i] <= quantile(data$HousePrice.RateofChange, 0.5))
   {
-    data$RateofChange[i]<- 1 
+    data$RateofChange[i]<- 1 # Class for data with a low rate of change in house prices
   }
   else
   {
-    data$RateofChange[i]<- 2
+    data$RateofChange[i]<- 2 # Class for data with a high rate of change in house prices
   }
 }
 
@@ -53,11 +53,7 @@ regr2 <- randomForest(x = X_train, y = y_train, maxnodes = 100, ntree = 100, rep
 # Make prediction
 predictions <- predict(regr2, X_test)
 
-#result <- X_test
-#result['prediction'] <- y_test
-#result['prediction']<-  predictions
-#head(result)
-
+# View results of prediction 
 table(predictions,y_test) 
 confusionMatrix(predictions,y_test)
 regr2$importance
