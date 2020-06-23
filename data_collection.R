@@ -3,6 +3,7 @@ library(tidyverse)
 library(gdata)
 library(RCurl)
 
+start_time <- Sys.time()
 ## Including all the Data that is needed:
 
 # The following Data for job vacancy and hpuse praices is from 
@@ -42,7 +43,7 @@ happy18 <- happy18 %>% rename( Country = Country.or.region)
 
 happy19 <- happy19 %>% rename( Country = Country.or.region)
 
-# delete social.support variable because it is not defined further and cant be found in data fram 15, 16 and 17 
+# delete social.support variable because it is not defined further and can't be found in data from 15, 16 and 17 
 
 happy19 <- happy19[-5]
 happy18 <- happy18[-5]
@@ -228,5 +229,8 @@ happy19$longterm_interestrate <- NA
 data <- rbind(happy15,happy16, happy17, happy18, happy19)
 
 write.csv(data, '~/Documents/UNI/Master/Data_Science/Daten_Codes/Datensaetze/finale_daten.csv')
+end_time <- Sys.time()
 
+end_time - start_time
+#system.time(source('~/Documents/UNI/Master/Data_Science/Daten_Codes/data_collection.R'))
 
