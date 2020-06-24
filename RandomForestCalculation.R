@@ -29,14 +29,26 @@ data <- data[-10] # delete HousePrice.RateofChange from Data
 
 data$RateofChange <- as.factor(data$RateofChange) # convert to facor for analysis
 
+# Analyze Correlation Matrix: 
+
+library(corrplot)
+library(RColorBrewer)
+M <-cor(data%>% 
+          select(Overall.rank, GDP.per.capita, Score,
+                 Healthy.life.expectancy, Freedom.to.make.life.choices,
+                 Generosity, Perceptions.of.corruption,  EmploymentRate, Job.Vacancy, longterm_interestrate,
+                 HousePrice.AvgIndex.oneYearago, HousePrice.AvgIndex.twoYearsago))
+corrplot(M, type="upper", order="hclust", col=brewer.pal(n=8, name="RdYlBu"),
+         tl.col = 'black')
+
 library(caret)
 # Create features and target
 data <- na.roughfix(data) # set median for missing values
 X <- data %>% 
-  select(Overall.rank, GDP.per.capita, #Score,
+  select( GDP.per.capita, Score, #Overall.rank,
            Healthy.life.expectancy, Freedom.to.make.life.choices,
            Generosity, Perceptions.of.corruption,  EmploymentRate, Job.Vacancy, #longterm_interestrate,
-         HousePrice.AvgIndex.oneYearago, HousePrice.AvgIndex.twoYearsago)
+         HousePrice.AvgIndex.oneYearago) #, HousePrice.AvgIndex.twoYearsago)
 y <- data$RateofChange
 
 # Split data into training and test sets
@@ -70,3 +82,7 @@ pred3 = performance(perf, "tpr","fpr")
 # 3. Plot the ROC curve
 plot(pred3,main="ROC Curve for Random Forest",col=2,lwd=2)
 abline(a=0,b=1,lwd=2,lty=2,col="gray")
+
+
+
+         
